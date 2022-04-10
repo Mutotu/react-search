@@ -6,7 +6,7 @@ import ArtistItem from "./components/ArtistItem";
 import MoreButton from "./components/MoreButton";
 import InputForm from "./components/InputForm";
 import Header from "./components/Header";
-import ErrorMessage from "./components/ErrorMessage";
+import Spinner from "./components/Spinner";
 
 export default function App(props) {
   const [data, setData] = useState([]);
@@ -46,9 +46,9 @@ export default function App(props) {
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <InputForm seachTerm={fetchData} represhData={represhData} />
-      <ErrorMessage inputArtist={inputArtist} />
+
       {dataLength ? (
         <Header dataLength={dataLength} inputArtist={inputArtist} />
       ) : null}
@@ -59,7 +59,8 @@ export default function App(props) {
           limit={limit}
         />
       ) : null}
-      <div className="section-list"> {displayInfo()}</div>
+      {!data.length ? <Spinner /> : null}
+      <div className='section-list'> {displayInfo()}</div>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import { useState } from "react";
+import ErMessage from "./ErMessage";
 
 const Form = (props) => {
   const [input, setInput] = useState("");
-
+  const [showError, setShowError] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     props.seachTerm(input);
-
+    setShowError(input.length < 1);
     setInput("");
   };
 
@@ -14,23 +15,24 @@ const Form = (props) => {
     <div>
       <form onSubmit={handleSubmit}>
         <input
-          placeholder="Search..."
-          className="searchArtist"
+          placeholder='Search...'
+          className='searchArtist'
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
           }}
         />
         <button
-          className="search-button"
-          type="submit"
+          className='search-button'
+          type='submit'
           onClick={() => {
             props.represhData();
           }}
         >
-          <i className="fa fa-search"></i>
+          <i className='fa fa-search'></i>
         </button>
       </form>
+      {showError ? <ErMessage /> : null}
     </div>
   );
 };
