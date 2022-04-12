@@ -1,7 +1,7 @@
 const MoreButton = (props) => {
   return (
     <button
-      class="more"
+      className='more'
       onClick={() => {
         props.setLimit((props.limit += 5));
         props.displayInfo();

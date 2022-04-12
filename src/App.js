@@ -1,7 +1,7 @@
 import "./styles.css";
 import axios from "axios";
-
 import { useState } from "react";
+
 import ArtistItem from "./components/ArtistItem";
 import MoreButton from "./components/MoreButton";
 import InputForm from "./components/InputForm";
@@ -13,7 +13,9 @@ export default function App(props) {
   const [dataLength, setDataLength] = useState(0);
   const [limit, setLimit] = useState(5);
   const [inputArtist, setInputArtist] = useState("");
+  const [spinning, setSpinning] = useState(false);
   const fetchData = async (artist) => {
+    setSpinning(true);
     setInputArtist(artist);
     const res = await axios.get(
       `https://itunes.apple.com/search?term=${artist}&media=music&entity=album&attribute=artistTerm&limit=200`
@@ -29,7 +31,7 @@ export default function App(props) {
       .reverse()
       .map((item, i) => {
         return (
-          <div key={item.artistId}>
+          <div key={item.artistId + i} className='artist-card'>
             <ArtistItem
               image={item.artworkUrl100}
               artistName={item.artistName}
@@ -59,7 +61,7 @@ export default function App(props) {
           limit={limit}
         />
       ) : null}
-      {!data.length ? <Spinner /> : null}
+      {!data.length && spinning ? <Spinner /> : null}
       <div className='section-list'> {displayInfo()}</div>
     </div>
   );

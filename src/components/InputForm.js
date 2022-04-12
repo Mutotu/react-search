@@ -7,7 +7,8 @@ const Form = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.seachTerm(input);
-    setShowError(input.length < 1);
+    if (input === "") setShowError(true);
+    else setShowError(false);
     setInput("");
   };
 
