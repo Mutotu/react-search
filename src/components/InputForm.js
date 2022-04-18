@@ -17,7 +17,7 @@ const Form = (props) => {
       <form onSubmit={handleSubmit}>
         <input
           placeholder='Search...'
-          className='searchArtist'
+          className={showError ? "error" : "searchArtist"}
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
@@ -30,7 +30,7 @@ const Form = (props) => {
             props.represhData();
           }}
         >
-          <i className='fa fa-search'></i>
+          <i className='fa-search'></i>
         </button>
       </form>
       {showError ? <ErMessage /> : null}
